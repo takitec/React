@@ -9,6 +9,7 @@ const Login = ({ onLoginSuccess }) => {
     try {
       const data = await login(username, password);
       console.log('Login successful', data);
+       alert('Login successful!');
       onLoginSuccess(data); // Handle successful login (e.g., store token, redirect)
     } catch (error) {
       console.error('Login failed', error);
