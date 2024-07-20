@@ -1,10 +1,8 @@
-/* App.css */
-
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f2f5;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+  background-color: #fafafa; 
   margin: 0;
-  padding: 0;
+  padding: 10;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,29 +43,32 @@ input {
 button {
   width: 100%;
   padding: 12px;
-  background-color: #1877f2;
+  background: linear-gradient(90deg, #f58529, #dd2a7b, #8134af, #515bd4); 
   color: white;
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  text-align: center;
   transition: background-color 0.3s ease;
+  margin-bottom: 20px; 
 }
 
 button:hover {
-  background-color: #155db2;
+  opacity: 0.9; 
 }
 
 h2 {
   margin-bottom: 30px;
   font-size: 24px;
   color: #333;
+  text-align: center;
 }
 
 .toggle-button {
   background: none;
   border: none;
-  color: #1877f2;
+  color: #515bd4; 
   cursor: pointer;
   margin-top: 20px;
   text-decoration: underline;
