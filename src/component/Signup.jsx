@@ -6,12 +6,13 @@ const Signup = ({ onSignupSuccess }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPass, setConfirmPassword] = useState('')
+  const [confirmPass, setConfirmPassword] = useState('');
 
   const handleSignup = async () => {
     try {
       const data = await signup(id, username, email, password, confirmPass);
       console.log('Signup successful', data);
+      alert('Account successfully created!');
       onSignupSuccess(data); // Handle successful signup (e.g., store token, redirect)
     } catch (error) {
       console.error('Signup failed', error);
@@ -25,7 +26,7 @@ const Signup = ({ onSignupSuccess }) => {
       <input type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
       <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
       <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-      <input type="confirmPass" placeholder="confirmPass" value={confirmPass} onChange={e => setConfirmPassword(e.target.value)} />
+      <input type="password" placeholder="Confirm Password" value={confirmPass} onChange={e => setConfirmPassword(e.target.value)} />
       <button onClick={handleSignup}>Signup</button>
     </div>
   );
