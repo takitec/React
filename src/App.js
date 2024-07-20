@@ -3,47 +3,31 @@ import './component/loginsignup.css';
 import Signup from './component/Signup';
 import Login from './component/Login';
 
-function Auth() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showSignup, setShowSignup] = useState(false); // Set to false to show the login form initially
-  const [setUser] = useState(null);
+function App() {
+  const [isLogin, setIsLogin] = useState(true);
 
-  const handleSignupSuccess = (userData) => {
-    setUser(userData);
-    setShowSignup(true); // Switch to login form after successful signup
-  };
+   const handleLoginSuccess = (data) => {
+     
+     console.log('Login data:', data);
+   };
 
-  const handleLoginSuccess = (userData) => {
-    setUser(userData);
-    setIsLoggedIn(true); // User is logged in
-  };
+   const handleSignupSuccess = (data) => {
+    
+     console.log('Signup data:', data);
+   };
 
-  const handleLogout = () => {
-    setUser(null);
-    setIsLoggedIn(false);
-  };
+   return (
+     <div>
+       {isLogin ? (
+         <Login onLoginSuccess={handleLoginSuccess} />
+       ) : (
+         <Signup onSignupSuccess={handleSignupSuccess} />
+       )}
+       <button onClick={() => setIsLogin(!isLogin)}>
+         {isLogin ? 'Switch to Signup' : 'Switch to Login'}
+       </button>
+     </div>
+   );
+ };
 
-  if (isLoggedIn) {
-    return (
-      <div>
-        <h2>Welcome</h2>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
-    );
-  }
-
-  return (
-    <div className="App">
-      {showSignup ? (
-        <Signup onSignupSuccess={handleSignupSuccess} />
-      ) : (
-        <Login onLoginSuccess={handleLoginSuccess} />
-      )}
-      <button className="toggle-button" onClick={() => setShowSignup(!showSignup)}>
-        {showSignup ? 'Switch to Login' : 'Switch to Signup'}
-      </button>
-    </div>
-  );
-}
-
-export default Auth;
+ export default App;
