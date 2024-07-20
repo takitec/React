@@ -1,47 +1,28 @@
 import React, { useState } from 'react';
 import { login } from './Service/apiService';
 
-function Login({ onLoginSuccess }) {
-  const [email, setEmail] = useState('');
+const Login = ({ onLoginSuccess }) => {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleLogin = async () => {
     try {
-      const data = await login({ email, password });
-      console.log(data);
-      onLoginSuccess(data); // Pass user data to the parent component
+      const data = await login(username, password);
+      console.log('Login successful', data);
+      onLoginSuccess(data); // Handle successful login (e.g., store token, redirect)
     } catch (error) {
-      console.error(error);
+      console.error('Login failed', error);
     }
   };
 
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+      <input type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
+      <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+      <button onClick={handleLogin}>Login</button>
     </div>
   );
-}
+};
 
 export default Login;
