@@ -1,78 +1,34 @@
 import React, { useState } from 'react';
 import { signup } from './Service/apiService';
 
-function Signup({ onSignupSuccess }) {
+const Signup = ({ onSignupSuccess }) => {
+  const [id, setId] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [confirmPass, setConfirmPassword] = useState('')
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (password === confirmPassword) {
-      try {
-        const data = await signup({ username, email, password });
-        console.log(data);
-        setSuccessMessage('User successfully registered! Redirecting to login...');
-        setTimeout(() => {
-          onSignupSuccess(data); // Pass user data to the parent component
-        }, 2000); // Adjust the delay as needed
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      console.error('Passwords do not match');
+  const handleSignup = async () => {
+    try {
+      const data = await signup(id, username, email, password, confirmPass);
+      console.log('Signup successful', data);
+      onSignupSuccess(data); // Handle successful signup (e.g., store token, redirect)
+    } catch (error) {
+      console.error('Signup failed', error);
     }
   };
 
   return (
     <div>
       <h2>Signup</h2>
-      {successMessage && <p>{successMessage}</p>}
-      {!successMessage && (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Username:</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Email:</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Password:</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Confirm Password:</label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Signup</button>
-        </form>
-      )}
+      <input type="text" placeholder="ID" value={id} onChange={e => setId(e.target.value)} />
+      <input type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
+      <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+      <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+      <input type="confirmPass" placeholder="confirmPass" value={confirmPass} onChange={e => setConfirmPassword(e.target.value)} />
+      <button onClick={handleSignup}>Signup</button>
     </div>
   );
-}
+};
 
 export default Signup;
